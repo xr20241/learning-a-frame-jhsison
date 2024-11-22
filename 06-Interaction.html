@@ -24,10 +24,10 @@
                 to: 0.5 1.5 0.5;
                 dur: 2000;
                 loop: true;
-                <!-- Events below only apply to themselves -->
                 startEvents: click;
                 pauseEvents: mouseleave;
                 resumeEvents: mouseenter;
+                <!-- Events only apply to themselves -->
             "
         ></a-box>
         <a-box
@@ -47,8 +47,8 @@
                 _event: click;
                 color: #aa00aa;
                 rotation: 45 0 45;
-                <!-- Events will apply to the target: yellow box -->
                 _target: #yellowbox;
+                <!-- Events will apply to the target: yellow box -->
             "
         ></a-box>
         <a-box
