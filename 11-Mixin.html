@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixin (A-Frame's CSS)</title>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+</head>
+<body>
+    <a-scene>
+        <a-assets>
+            <a-mixin
+                id="bluebox"
+                geometry="primitive: box;"
+                material="color: blue;"
+            ></a-mixin>
+            <a-mixin
+                id="spinning"
+                animation="
+                    property: rotation;
+                    to: 0 360 0;
+                    dur: 2000;
+                    loop: true;
+                    startEvents: click;
+                "
+            ></a-mixin>
+            <a-mixin
+                id="kahel"
+                material="color: orange"
+            ></a-mixin>
+        </a-assets>
+        
+        <a-camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+        
+        <a-entity
+            position="0 1.5 -3"
+            mixin="bluebox kahel"
+        ></a-entity>
+        <a-entity
+            position="2 1.5 -3"
+            mixin="spinning kahel bluebox"
+        ></a-entity>
+        <a-entity
+            position="-2 1.5 -3"
+            mixin="bluebox kahel spinning"
+        ></a-entity>
+    </a-scene>
+</body>
+</html>
