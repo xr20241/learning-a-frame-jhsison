@@ -20,14 +20,14 @@
                     newBox.setAttribute("color", "red");
                     let temp = Math.random() * 2 - 1;
                     newBox.setAttribute("position", `${temp} 2 -3`);
-                    newBox.setAttribute("dynamic-body", "shape:box");
-                    newBox.setAttribute("spring", "target:#anchor;stiffness:25");
+                    newBox.setAttribute("dynamic-body", "shape: box");
+                    newBox.setAttribute("spring", "target: #anchor; stiffness: 25");
                     scene.appendChild(newBox);
                 });
             }
         });
     </script>
-    <a-scene id="scene" physics="debug:true">
+    <a-scene id="scene" physics="debug: true">
         <a-camera position="0 1.5 2">
             <a-cursor></a-cursor>
         </a-camera>
@@ -43,7 +43,7 @@
             dynamic-body
             color="green"
             id="moving"
-            constraint="target:#anchor;type:coneTwist;pivot:0 -0.5 0"
+            constraint="target: #anchor; type: coneTwist; pivot: 0 -0.5 0"
             scale="4 0.2 1"
             position="0 3.5 -3"
         ></a-box>
