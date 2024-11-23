@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripting</title>
+    <!-- A-Frame is developed on Three.js -->
+    <!-- based on entity-component framework,
+    all things are under the scene and called as entity,
+    each entity has one or more components. -->
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+</head>
+<body>
+    <script>
+        AFRAME.registerComponent('foo', {
+            // Defining the default messages
+            schema: {
+                message1: { type: "string", default: "Foo" },
+                message2: { type: "string", default: "Holla" }
+            },
+            
+            // Updating the console data when foo is called
+            update: function(oldData) {
+                console.log("UPDATED");
+            },
+
+            // Tick is a function called periodically by the clock of the processor, rotates in the y direction periodically
+            tick: function(/*time, timeDelta*/) {
+                this.el.getObject3D('mesh').rotation.y += 0.01;
+            },
+
+            init: function() {
+                // Printing in the console
+                console.log("%cHello " + this.data.message1 + ", " + this.data.message2, "font-size:2em");
+                
+                // Referencing to the entity as an HTML Element. When this is run, the details of the element are shown.
+                // console.log(this.el)
+                
+                // Query Selector. The details of box1 are shown.
+                // let box = document.querySelector("#box1");
+                // console.log(box);
+                
+                // Setting data as this.data so the data is defined and the code is not confused
+                let data = this.data;
+
+                // Changing the color of the mesh to yellow
+                this.el.getObject3D('mesh').material.color = new THREE.Color('yellow');
+                
+                // Adding a click event. If clicked, the events (console prints text, or animation happens) occur
+                this.el.addEventListener('click', function(ev) {
+                //     In this event, the attributes are changed and when clicked, it prints Hello Altenative, Holla
+                //     ev.srcElement.setAttribute('foo', 'message1:Alternative');
+                //     console.log("%cHello " + data.message1 + ", " + data.message2, "font-size:2em");
+                
+                // In this event, the box continuously moves upward by 0.5 units when clicked
+                    let clickedData = ev.srcElement.getAttribute('position');
+                    ev.srcElement.setAttribute(
+                        'position', 
+                        clickedData.x + ' ' + 
+                        (clickedData.y + 0.5) + ' ' + 
+                        clickedData.z
+                    );
+                });
+            }
+        });
+    </script>
+    
+    <a-scene>
+        <a-camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+        <!-- <a-entity foo="message2: Good Morning"></a-entity> -->
+        <a-box
+            foo
+            id="box1"
+            material="color: red"
+            position="-2 1.5 -3"
+        ></a-box>
+        <a-box
+            foo="message1: Box, message2: Adios"
+            id="box2"
+            material="color: green; wireframe: true"
+            position="2 1.5 -3"
+        ></a-box>
+    </a-scene>
+</body>
+</html>
