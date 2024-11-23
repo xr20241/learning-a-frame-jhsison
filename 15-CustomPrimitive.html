@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Primitive</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+</head>
+<body>
+    <script>
+        AFRAME.registerComponent('kahongwalanglaman', {
+            schema: {
+                sukat: { type: "number", default: 1 }
+            },
+            tick: function() {
+                this.kahon.rotation.y += 0.1;
+            },
+            init: function() {
+                let data = this.data;
+                this.materyal = new THREE.MeshStandardMaterial({
+                    color:0xff00ff,
+                    wireframe:true
+                });
+                this.kahonGeometry = new THREE.BoxGeometry(
+                    data.sukat,
+                    data.sukat,
+                    data.sukat,
+                    3, 3, 3
+                );
+                this.kahon = new THREE.Mesh(this.kahonGeometry, this.materyal);
+                this.donatGeometry = new THREE.TorusBufferGeometry(1.5, 0.2, 45, 45);
+                this.donat = new THREE.Mesh(this.donatGeometry, this.materyal);
+                this.kahondonat = new THREE.Group();
+                this.kahondonat.add(this.kahon);
+                this.kahondonat.add(this.donat);
+
+                this.el.setObject3D('mesh', this.kahondonat);
+            }
+        })
+    </script>
+    <a-scene>
+        <a-entity kahongwalanglaman position="0 1.5 -3"></a-entity>
+        <a-entity kahongwalanglaman position="5 1.5 -3"></a-entity>
+        <a-entity kahongwalanglaman position="-5 1.5 -3"></a-entity>
+    </a-scene>
+</body>
+</html>
